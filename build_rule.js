@@ -10,9 +10,15 @@ var d = [];
 var TARGET = 'hiker://files/drpy/plugins/PythonExtensionPlugin_v12.hkpkg';
 var installed = false;
 try { installed = fileExist(TARGET); } catch (e) { installed = false; }
+function abs(p) {
+    var fp = '';
+    try { fp = getPath(p); } catch (e) {}
+    if (typeof fp === 'string' && fp.indexOf('file://') === 0) { fp = fp.substring(7); }
+    return fp;
+}
 function fsize(p) {
     try {
-        var f = new java.io.File(getPath(p));
+        var f = new java.io.File(abs(p));
         return (f && f.exists()) ? f.length() : 0;
     } catch (e) { return 0; }
 }
@@ -61,40 +67,40 @@ var d = [];
 var DOWNLOAD_URL = 'https://cdn.jsdelivr.net/gh/netusre/drpy-plugin-installer@master/plugins/PythonExtensionPlugin_v12.hkpkg';
 var FALLBACK_URL = 'https://raw.githubusercontent.com/netusre/drpy-plugin-installer/master/plugins/PythonExtensionPlugin_v12.hkpkg';
 var TARGET = 'hiker://files/drpy/plugins/PythonExtensionPlugin_v12.hkpkg';
-function realPath(p) { try { return getPath(p); } catch (e) { return String(p); } }
-function ensureDir() {
-    try {
-        var f = new java.io.File(realPath(TARGET));
-        var p = f.getParentFile();
-        if (p && !p.exists()) { p.mkdirs(); }
-    } catch (e) {}
+var EXPECT_MD5 = 'EAD3EBDD6AE133228C72277572AD78C6';
+function abs(p) {
+    var fp = '';
+    try { fp = getPath(p); } catch (e) {}
+    if (typeof fp === 'string' && fp.indexOf('file://') === 0) { fp = fp.substring(7); }
+    return fp;
+}
+function exists(p) { try { return fileExist(p); } catch (e) { return false; } }
+function sig(p) {
+    try { var m = md5(p); return (m && String(m).length > 8) ? String(m).toUpperCase() : ''; } catch (e) { return ''; }
 }
 function deleteOld() {
     try {
-        var f = new java.io.File(realPath(TARGET));
+        var f = new java.io.File(abs(TARGET));
         if (f && f.exists()) { f.delete(); }
     } catch (e) {}
 }
-function sizeOf() {
-    try {
-        var f = new java.io.File(realPath(TARGET));
-        return (f && f.exists()) ? f.length() : 0;
-    } catch (e) { return 0; }
+function verify() {
+    if (!exists(TARGET)) { return false; }
+    try { return sig(TARGET) === EXPECT_MD5; } catch (e) { return false; }
 }
-function doDownload() {
-    deleteOld();
-    try { downloadFile(DOWNLOAD_URL, TARGET); } catch (e) {}
-    if (sizeOf() > 1000000) { return true; }
-    deleteOld();
-    try { downloadFile(FALLBACK_URL, TARGET); } catch (e) {}
-    return sizeOf() > 1000000;
+function tryDownload(url) {
+    try { downloadFile(url, TARGET); } catch (e) { return 'err:' + String(e); }
+    return verify() ? 'ok' : 'bad';
 }
-ensureDir();
-var ok = false;
-var errMsg = '';
-try { ok = doDownload(); } catch (e) { errMsg = String(e); }
-var sz = sizeOf();
-if (ok) {
+deleteOld();
+var r = tryDownload(DOWNLOAD_URL);
+if (r !== 'ok') {
+    deleteOld();
+    r = tryDownload(FALLBACK_URL);
+}
+if (r === 'ok') {
+    var sz = 0;
+    try { sz = new java.io.File(abs(TARGET)).length(); } catch (e) {}
     d.push({
         title: '[ 安装成功 ]',
         desc: '已写入 hiker://files/drpy/plugins/PythonExtensionPlugin_v12.hkpkg (' + Math.round(sz / 1024 / 1024 * 10) / 10 + ' MB)',
@@ -106,9 +112,17 @@ if (ok) {
 } else {
     d.push({
         title: '[ 安装失败 ]',
-        desc: (errMsg ? errMsg : '下载失败, 请检查网络后返回重试'),
+        desc: (r.indexOf('err:') === 0 ? '下载异常: ' + r.substring(4) : '已下载但文件校验不匹配, 请检查网络后重试'),
         img: 'https://img.icons8.com/doodle/48/000000/error.png',
-        url: 'hiker://page/plugininstall',
+        url: 'hiker://page/pluginrun',
+        col_type: 'movie_2',
+        extra: {}
+    });
+    d.push({
+        title: '[ 手动下载 ]',
+        desc: '浏览器打开直链下载文件, 放入目录: hiker://files/drpy/plugins/',
+        img: 'https://img.icons8.com/doodle/48/000000/link.png',
+        url: 'hiker://browser?url=' + encodeURIComponent(DOWNLOAD_URL),
         col_type: 'movie_2',
         extra: {}
     });
@@ -129,8 +143,11 @@ if (idx >= 0) {
   pages.push({ col_type: 'movie_2', name: 'plugininstall', path: 'plugininstall', rule: PLUGIN_INSTALL_JS });
 }
 
-// add pluginrun page (if missing)
-if (!pages.some(p => p.path === 'pluginrun')) {
+// add pluginrun page (or refresh it)
+const ri = pages.findIndex(p => p.path === 'pluginrun');
+if (ri >= 0) {
+  pages[ri] = Object.assign({}, pages[ri], { rule: PLUGIN_RUN_JS });
+} else {
   pages.push({ col_type: 'movie_2', name: 'pluginrun', path: 'pluginrun', rule: PLUGIN_RUN_JS });
 }
 
