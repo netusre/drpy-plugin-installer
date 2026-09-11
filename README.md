@@ -27,11 +27,16 @@ node server.js
 
 启动后会显示局域网访问地址，如 `http://192.168.1.100:5800`
 
-### 3. 在 Hiker 小程序中配置
+### 3. 在 Hiker 小程序中使用一键安装
 
-1. 将 `rule_hacker/rule_plugin.json` 导入海阔视界
-2. 或将 `rule_hacker/rule_modified.json` 的 pages 内容合并到你现有的 rule.json
-3. 在小程序设置中填写服务器地址: `http://<你的电脑IP>:5800`
+1. 将 `rule_hacker/rule_modified.json` 替换为你现有的 rule.json（首页会新增「Python插件一键安装」入口卡片）
+2. 导入海阔视界后，进入首页点击「[ Python插件一键安装 ]」卡片
+3. 在安装页面点击「[ 一键安装 ]」，会自动打开后端的安装进度页，实时显示下载/解压/装依赖日志
+4. 安装完成后回到小程序页面，状态变为「已安装」，可随时重新安装或卸载
+
+> 服务器地址默认 `http://127.0.0.1:5800`。手机与后端不在同一设备时，将 rule 中
+> `plugin_server_url` 的默认值改为电脑局域网 IP，例如 `http://192.168.1.100:5800`
+> （页面内同样会展示当前地址，便于核对）。
 
 ## API 接口
 
@@ -39,6 +44,10 @@ node server.js
 |------|------|------|
 | `GET /` | GET | 服务状态 |
 | `GET /api/plugin/status` | GET | 查看已安装插件 |
+| `POST /api/plugin/start` | POST | 创建安装任务（返回 taskId） |
+| `GET /api/plugin/task?id=xxx` | GET | 查询任务进度/日志 |
+| `GET /api/plugin/install_page?url=&name=` | GET | 安装网页（Hiker 按钮打开） |
+| `GET /api/plugin/remove_page?name=` | GET | 卸载网页（Hiker 按钮打开） |
 | `POST /api/plugin/install` | POST | 异步安装插件 |
 | `POST /api/plugin/install_sync` | POST | 同步安装（等待完成） |
 | `POST /api/plugin/remove` | POST | 卸载插件 |
