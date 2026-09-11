@@ -1,4 +1,4 @@
-const mpath = "hiker://files/plugins/chaquopy"
+const mpath = "hiker://files/rules/DrpyHiker/plugins/chaquopy"
 
 function getMP(name) {
     return mpath + "/" + name;
