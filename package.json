@@ -1,0 +1,21 @@
+{
+  "name": "drpy-plugin-installer",
+  "version": "1.0.0",
+  "description": "drpy Python插件一键安装服务 - 配合海阔视界Hiker小程序使用",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js --dev"
+  },
+  "keywords": ["drpy", "hiker", "plugin", "installer"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "adm-zip": "^0.5.10",
+    "node-fetch": "^2.7.0",
+    "extract-zip": "^2.0.1",
+    "fs-extra": "^11.1.1",
+    "cors": "^2.8.5"
+  }
+}
