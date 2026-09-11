@@ -1,104 +1,65 @@
 # drpy-plugin-installer
 
-drpy Python插件一键安装服务，配合海阔视界Hiker小程序使用。
+在**海阔视界 Hiker 小程序内**一键静默安装 Python 扩展插件到海阔本地目录。
 
-## 功能
+**纯小程序方案，不需要电脑端服务、不依赖局域网。**
 
-- 一键安装 Python 扩展插件到 drpy 后端
-- 支持光鸭云盘分享链接自动解析
-- 自动下载、解压、安装 pip 依赖
-- 插件管理（查看/卸载）
-- 局域网内可通过 Hiker 小程序远程操作
+## 原理
 
-## 快速开始
+- 插件包 `PythonExtensionPlugin_v12.hkpkg`（约 12MB）托管在本仓库 `plugins/` 下；
+- 海阔小程序通过 `downloadFile(GitHub直链, 'hiker://files/drpy/plugins/...')` 静默下载；
+- 点击 = 下载 = 落盘，完成即安装；
+- jsDelivr CDN 直链为主，raw.githubusercontent 直链为备用，自动回退。
 
-### 1. 安装依赖
+直链：
 
-```bash
-cd drpy-plugin-installer
-npm install
-```
+| 源 | 地址 |
+|----|------|
+| jsDelivr（主） | `https://cdn.jsdelivr.net/gh/netusre/drpy-plugin-installer@master/plugins/PythonExtensionPlugin_v12.hkpkg` |
+| GitHub raw（备） | `https://raw.githubusercontent.com/netusre/drpy-plugin-installer/master/plugins/PythonExtensionPlugin_v12.hkpkg` |
 
-### 2. 启动服务
+## 使用
 
-```bash
-node server.js
-```
+### 方式一：导入现成小程序（推荐）
 
-启动后会显示局域网访问地址，如 `http://192.168.1.100:5800`
+1. 下载 `插件安装版.hkzip`；
+2. 海阔视界 → 首页左上角菜单 → 导入小程序 → 选择该 `.hkzip`；
+3. 首页出现「Python插件一键安装」卡片；
+4. 点击 → 进入安装页 → 点击「一键安装」，静默下载完成后状态变为「已安装」。
 
-### 3. 在 Hiker 小程序中使用一键安装
+安装目标：`hiker://files/drpy/plugins/PythonExtensionPlugin_v12.hkpkg`（DrpyHiker 插件目录）。
 
-1. 将 `rule_hacker/rule_modified.json` 替换为你现有的 rule.json（首页会新增「Python插件一键安装」入口卡片）
-2. 导入海阔视界后，进入首页点击「[ Python插件一键安装 ]」卡片
-3. 在安装页面点击「[ 一键安装 ]」，会自动打开后端的安装进度页，实时显示下载/解压/装依赖日志
-4. 安装完成后回到小程序页面，状态变为「已安装」，可随时重新安装或卸载
+### 方式二：合并进现有规则
 
-> 服务器地址默认 `http://127.0.0.1:5800`。手机与后端不在同一设备时，将 rule 中
-> `plugin_server_url` 的默认值改为电脑局域网 IP，例如 `http://192.168.1.100:5800`
-> （页面内同样会展示当前地址，便于核对）。
+用 `rule_hacker/rule_modified.json` 替换你现有 rule.json 的规则内容（该文件已内置
+`plugininstall` 与 `pluginrun` 两个页面，首页含「Python插件一键安装」入口卡片），导入海阔即可。
 
-## API 接口
+## 更新插件
 
-| 接口 | 方法 | 说明 |
-|------|------|------|
-| `GET /` | GET | 服务状态 |
-| `GET /api/plugin/status` | GET | 查看已安装插件 |
-| `POST /api/plugin/start` | POST | 创建安装任务（返回 taskId） |
-| `GET /api/plugin/task?id=xxx` | GET | 查询任务进度/日志 |
-| `GET /api/plugin/install_page?url=&name=` | GET | 安装网页（Hiker 按钮打开） |
-| `GET /api/plugin/remove_page?name=` | GET | 卸载网页（Hiker 按钮打开） |
-| `POST /api/plugin/install` | POST | 异步安装插件 |
-| `POST /api/plugin/install_sync` | POST | 同步安装（等待完成） |
-| `POST /api/plugin/remove` | POST | 卸载插件 |
-| `POST /api/plugin/resolve` | POST | 解析分享链接获取直链 |
-
-### 安装插件示例
-
-```bash
-# 解析光鸭云盘链接
-curl -X POST http://127.0.0.1:5800/api/plugin/resolve \
-  -H "Content-Type: application/json" \
-  -d '{"url": "https://www.guangyapan.com/s/1945414759732711521_ae4AhIULFG4aU285"}'
-
-# 一键安装（异步）
-curl -X POST http://127.0.0.1:5800/api/plugin/install \
-  -H "Content-Type: application/json" \
-  -d '{"url": "https://www.guangyapan.com/s/1945414759732711521_ae4AhIULFG4aU285", "name": "PythonExtensionPlugin_v12"}'
-
-# 一键安装（同步，等待完成）
-curl -X POST http://127.0.0.1:5800/api/plugin/install_sync \
-  -H "Content-Type: application/json" \
-  -d '{"url": "https://直链地址/file.zip", "name": "PythonExtensionPlugin_v12"}'
-
-# 查看已安装插件
-curl http://127.0.0.1:5800/api/plugin/status
-
-# 卸载插件
-curl -X POST http://127.0.0.1:5800/api/plugin/remove \
-  -H "Content-Type: application/json" \
-  -d '{"name": "PythonExtensionPlugin_v12"}'
-```
+插件有新版时，把新 `.hkpkg` 放到 `plugins/`（保持 `PythonExtensionPlugin_v12.hkpkg` 文件名），
+`git push` 后，海阔里点「已安装 → 重新安装」即静默覆盖更新。变更文件后建议在 jsDelivr 加一次
+刷新（`https://purge.jsdelivr.net/gh/...`）或等待几分钟。
 
 ## 目录结构
 
 ```
 drpy-plugin-installer/
-├── server.js              # Express 主服务
-├── pluginManager.js       # 插件管理模块（下载/解压/安装）
-├── guangyaParser.js       # 光鸭云盘链接解析
-├── package.json
+├── plugins/
+│   └── PythonExtensionPlugin_v12.hkpkg   # 插件包（GitHub 直链源）
 ├── rule_hacker/
-│   ├── rule_plugin.json        # 插件安装页面（独立小程序）
-│   └── rule_modified.json      # 原始rule.json + 插件页面（合并版）
-├── plugins/               # 插件安装目录（自动创建）
-├── temp/                  # 临时下载目录（自动创建）
+│   ├── rule_plugin.json                  # 纯插件安装页面（独立/合并用）
+│   ├── rule_modified.json                # 完整 rule.json（含插件页面，导入用）
+│   └── out/rule.json                     # 打包产物
+├── build_rule.js                         # 规则生成脚本（Node）
+├── server.js / pluginManager.js / guangyaParser.js   # 旧版后端(已弃用,仅供参考)
 └── README.md
 ```
 
-## 注意事项
+## 关于旧版后端
 
-- 服务默认端口 `5800`，可通过 `PORT` 环境变量修改
-- 需要 Node.js >= 14
-- 插件安装需要后端有 Python 环境（用于 pip install）
-- 光鸭云盘自动解析可能不稳定，建议优先使用直链
+仓库早期版本提供过 Node.js 后端服务（`node server.js`，端口 5800）来实现安装。该方案已被
+纯小程序方案取代，相关代码（`server.js`、`pluginManager.js`、`guangyaParser.js`）保留仅供
+参考，不再需要运行。
+
+> 注：插件原始来自光鸭云盘分享，但该分享被分享者设为「需登录下载」，无法免登录静默获取，
+> 因此改用本仓库 GitHub 直链托管。

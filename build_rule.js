@@ -1,0 +1,158 @@
+const fs = require('fs');
+
+const RULE_FILE = 'C:/Users/Administrator/Desktop/新建文件夹/drpy-plugin-installer/rule_hacker/rule_modified.json';
+const RULE_ALSO = 'C:/Users/Administrator/Desktop/新建文件夹/drpy-plugin-installer/rule_hacker/rule_plugin.json';
+const OUT_RULE = 'C:/Users/Administrator/Desktop/新建文件夹/drpy-plugin-installer/rule_hacker/out/rule.json';
+
+const PLUGIN_INSTALL_JS = `js:
+// ===== Python 插件一键安装页面(纯海阔, 无需电脑服务) =====
+var d = [];
+var TARGET = 'hiker://files/drpy/plugins/PythonExtensionPlugin_v12.hkpkg';
+var installed = false;
+try { installed = fileExist(TARGET); } catch (e) { installed = false; }
+function fsize(p) {
+    try {
+        var f = new java.io.File(getPath(p));
+        return (f && f.exists()) ? f.length() : 0;
+    } catch (e) { return 0; }
+}
+d.push({
+    title: 'PythonExtensionPlugin_v12 (优化版)',
+    desc: 'drpy Python 扩展插件, 一键静默安装到海阔本地目录',
+    img: 'https://img.icons8.com/doodle/48/000000/python--v1.png',
+    url: 'hiker://empty',
+    col_type: 'movie_2',
+    extra: {}
+});
+if (installed) {
+    var sz = fsize(TARGET);
+    d.push({
+        title: '[ 已安装 ] 点击重新安装',
+        desc: '文件: ' + Math.round(sz / 1024 / 1024 * 10) / 10 + ' MB  |  hiker://files/drpy/plugins/PythonExtensionPlugin_v12.hkpkg',
+        img: 'https://img.icons8.com/doodle/48/000000/refresh.png',
+        url: 'hiker://page/pluginrun',
+        col_type: 'movie_2',
+        extra: {}
+    });
+} else {
+    d.push({
+        title: '[ 一键安装 ]',
+        desc: '自动静默下载安装(约12MB), 无需电脑服务',
+        img: 'https://img.icons8.com/doodle/48/000000/install.png',
+        url: 'hiker://page/pluginrun',
+        col_type: 'movie_2',
+        extra: {}
+    });
+}
+d.push({
+    title: '安装信息',
+    desc: '目标目录: hiker://files/drpy/plugins/   版本: v12 优化版   来源: GitHub 直链',
+    img: 'https://img.icons8.com/doodle/48/000000/info.png',
+    url: 'hiker://empty',
+    col_type: 'movie_2',
+    extra: {}
+});
+setResult(d);
+`;
+
+const PLUGIN_RUN_JS = `js:
+// ===== Python 插件静默安装执行页(纯海阔) =====
+var d = [];
+var DOWNLOAD_URL = 'https://cdn.jsdelivr.net/gh/netusre/drpy-plugin-installer@master/plugins/PythonExtensionPlugin_v12.hkpkg';
+var FALLBACK_URL = 'https://raw.githubusercontent.com/netusre/drpy-plugin-installer/master/plugins/PythonExtensionPlugin_v12.hkpkg';
+var TARGET = 'hiker://files/drpy/plugins/PythonExtensionPlugin_v12.hkpkg';
+function realPath(p) { try { return getPath(p); } catch (e) { return String(p); } }
+function ensureDir() {
+    try {
+        var f = new java.io.File(realPath(TARGET));
+        var p = f.getParentFile();
+        if (p && !p.exists()) { p.mkdirs(); }
+    } catch (e) {}
+}
+function deleteOld() {
+    try {
+        var f = new java.io.File(realPath(TARGET));
+        if (f && f.exists()) { f.delete(); }
+    } catch (e) {}
+}
+function sizeOf() {
+    try {
+        var f = new java.io.File(realPath(TARGET));
+        return (f && f.exists()) ? f.length() : 0;
+    } catch (e) { return 0; }
+}
+function doDownload() {
+    deleteOld();
+    try { downloadFile(DOWNLOAD_URL, TARGET); } catch (e) {}
+    if (sizeOf() > 1000000) { return true; }
+    deleteOld();
+    try { downloadFile(FALLBACK_URL, TARGET); } catch (e) {}
+    return sizeOf() > 1000000;
+}
+ensureDir();
+var ok = false;
+var errMsg = '';
+try { ok = doDownload(); } catch (e) { errMsg = String(e); }
+var sz = sizeOf();
+if (ok) {
+    d.push({
+        title: '[ 安装成功 ]',
+        desc: '已写入 hiker://files/drpy/plugins/PythonExtensionPlugin_v12.hkpkg (' + Math.round(sz / 1024 / 1024 * 10) / 10 + ' MB)',
+        img: 'https://img.icons8.com/doodle/48/000000/ok.png',
+        url: 'hiker://page/plugininstall',
+        col_type: 'movie_2',
+        extra: {}
+    });
+} else {
+    d.push({
+        title: '[ 安装失败 ]',
+        desc: (errMsg ? errMsg : '下载失败, 请检查网络后返回重试'),
+        img: 'https://img.icons8.com/doodle/48/000000/error.png',
+        url: 'hiker://page/plugininstall',
+        col_type: 'movie_2',
+        extra: {}
+    });
+}
+setResult(d);
+`;
+
+const rule = JSON.parse(fs.readFileSync(RULE_FILE, 'utf8'));
+let pages = typeof rule.pages === 'string' ? JSON.parse(rule.pages) : rule.pages;
+pages = pages.slice();
+
+// replace plugininstall page rule
+let idx = pages.findIndex(p => p.path === 'plugininstall');
+if (idx >= 0) {
+  const pg = Object.assign({}, pages[idx], { rule: PLUGIN_INSTALL_JS });
+  pages[idx] = pg;
+} else {
+  pages.push({ col_type: 'movie_2', name: 'plugininstall', path: 'plugininstall', rule: PLUGIN_INSTALL_JS });
+}
+
+// add pluginrun page (if missing)
+if (!pages.some(p => p.path === 'pluginrun')) {
+  pages.push({ col_type: 'movie_2', name: 'pluginrun', path: 'pluginrun', rule: PLUGIN_RUN_JS });
+}
+
+// update home entry card desc
+const home = pages.find(p => p.path === 'home');
+if (home) {
+  const hr = String(home.rule);
+  const hr2 = hr.replace(/'drpy扩展插件一键部署到后端'/, "'Python 扩展插件一键静默安装(无需电脑服务)'");
+  home.rule = hr2;
+}
+
+rule.pages = JSON.stringify(pages);
+
+if (!fs.existsSync('C:/Users/Administrator/Desktop/新建文件夹/drpy-plugin-installer/rule_hacker/out')) {
+  fs.mkdirSync('C:/Users/Administrator/Desktop/新建文件夹/drpy-plugin-installer/rule_hacker/out', { recursive: true });
+}
+fs.writeFileSync(RULE_FILE, JSON.stringify(rule), 'utf8');
+fs.writeFileSync(RULE_ALSO, JSON.stringify(rule), 'utf8');
+fs.writeFileSync(OUT_RULE, JSON.stringify(rule), 'utf8');
+
+console.log('done.');
+console.log('pages:', pages.map(p => p.path).join(','));
+console.log('plugininstall ruleLen:', String(pages.find(p => p.path === 'plugininstall').rule).length);
+console.log('pluginrun ruleLen:', String(pages.find(p => p.path === 'pluginrun').rule).length);
+console.log('rule.json bytes:', fs.statSync(OUT_RULE).size);
