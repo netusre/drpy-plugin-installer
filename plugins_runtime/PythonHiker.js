@@ -193,7 +193,15 @@ function runPy(path, mname, nocache) {
         }
     } else {
         mpath = cPath + name + ".py";
-        FileUtil.copy(new File(path), new File(mpath));
+        // 已存在且内容一致则跳过复制, 避免每次加载都重复 FileUtil.copy 同内容文件 (仅首次/变更时落缓存)
+        try {
+            var _srcF = new File(path), _dstF = new File(mpath);
+            if (!_dstF.exists() || _dstF.length() !== _srcF.length() || String(md5(path)).toUpperCase() !== String(md5(mpath)).toUpperCase()) {
+                FileUtil.copy(_srcF, _dstF);
+            }
+        } catch (e) {
+            try { FileUtil.copy(new File(path), new File(mpath)); } catch (e2) {}
+        }
     }
     return machinery.callAttr("SourceFileLoader", modName, mpath).callAttr("load_module");
 }
