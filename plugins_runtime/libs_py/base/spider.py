@@ -208,7 +208,7 @@ class BaseSpider:  # 不使用 ABCMeta, 允许源只实现部分方法即可实�
                 except Exception:
                     pass
                 return rsp
-            except (requests.exceptions.ConnectionError, ConnectionResetError) as e:
+            except (requests.exceptions.ConnectionError, ConnectionResetError, requests.exceptions.Timeout) as e:
                 last_err = e
                 if i < max_retries:
                     time.sleep(0.3 * (i + 1))
@@ -517,7 +517,16 @@ class BaseSpider:  # 不使用 ABCMeta, 允许源只实现部分方法即可实�
         return zlib.decompress(compressed, -zlib.MAX_WBITS)
 
     @staticmethod
-    def gzipCompress(compressed: bytes) -> bytes:
+    def gzipCompress(data: bytes) -> bytes:
+        """
+        gzip压缩
+        @param data: 待压缩的字节
+        @return:
+        """
+        return gzip.compress(data)
+
+    @staticmethod
+    def gzipDecompress(compressed: bytes) -> bytes:
         """
         gzip解压
         @param compressed: 压缩后的字节
@@ -682,7 +691,7 @@ class BaseSpider:  # 不使用 ABCMeta, 允许源只实现部分方法即可实�
         public_key = "-----BEGIN RSA PRIVATE KEY-----\n" + public_key + "\n-----END RSA PRIVATE KEY-----"
         pub_key = RSA.importKey(public_key)
         cipher = PKCS1_cipher.new(pub_key)
-        text = text.encode("utf-8)")
+        text = text.encode("utf-8")
         length = len(text)
         if length < default_length:
             rsa_text = base64.b64encode(cipher.encrypt(text))  # 加密并转为b64编码
