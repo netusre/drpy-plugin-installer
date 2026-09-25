@@ -1,1 +1,228 @@
-{"version":"6AD67C5AD0A0D388C8C0E6BBF9629D62","repo":"https://raw.githubusercontent.com/netusre/drpy-plugin-installer/master/plugins_runtime/","files":[{"p":"PythonHiker.js","u":"PythonHiker.js","s":9974,"h":"60D75E8FC6F74E4C0FBC0939F4BF273B"},{"p":"arm64-v8a/libchaquopy_java.so","u":"arm64-v8a/libchaquopy_java.so","s":159824,"h":"4315677BF9B23EB487F494F3C95BA527"},{"p":"arm64-v8a/libcrypto_chaquopy.so","u":"arm64-v8a/libcrypto_chaquopy.so","s":3688,"h":"6CF3E2A8850B1E57174CBB9FFFBF0C15"},{"p":"arm64-v8a/libcrypto_python.so","u":"arm64-v8a/libcrypto_python.so","s":2355168,"h":"8DBCE09F765A5F627D13C140B39BFE69"},{"p":"arm64-v8a/libpython3.8.so","u":"arm64-v8a/libpython3.8.so","s":3255616,"h":"EF35BB214F446C9E6E77E7CE016B0BA7"},{"p":"arm64-v8a/libsqlite3_chaquopy.so","u":"arm64-v8a/libsqlite3_chaquopy.so","s":3688,"h":"15ADE18C19347B97112506BBAE364377"},{"p":"arm64-v8a/libsqlite3_python.so","u":"arm64-v8a/libsqlite3_python.so","s":1178920,"h":"881855995A2BE28108F9E39165C034FB"},{"p":"arm64-v8a/libssl_chaquopy.so","u":"arm64-v8a/libssl_chaquopy.so","s":3688,"h":"12C5DAEBC7D6DEF2C193BF1C92923BC7"},{"p":"arm64-v8a/libssl_python.so","u":"arm64-v8a/libssl_python.so","s":549488,"h":"ECD23EF1592C331293AEC4E83D04A7A4"},{"p":"chaquopy.apk","u":"chaquopy.apk","s":9486516,"h":"8A95EBA09BE6CF1E6F5FBE684E519328"},{"p":"classes.dex","u":"classes.dex","s":35272,"h":"9C43007088F6D4096E3AA649C77AA03A"},{"p":"libs_py/app.py","u":"libs_py/app.py","s":2965,"h":"4858699C5B03FF586FAFC3FF67A68BAD"},{"p":"libs_py/base/hiker.py","u":"libs_py/base/hiker.py","s":1234,"h":"C781854714261CAE4244E93797AA630D"},{"p":"libs_py/base/hikerPop.py","u":"libs_py/base/hikerPop.py","s":5396,"h":"672EB4491814AE4F605DBD50B25F3B5D"},{"p":"libs_py/base/htmlParser.py","u":"libs_py/base/htmlParser.py","s":14055,"h":"7DDF6BCC8B5F02259E861F9F32D71AB7"},{"p":"libs_py/base/loader.py","u":"libs_py/base/loader.py","s":1053,"h":"79EA2022904EE16EB8005A684BE23F79"},{"p":"libs_py/base/spider.py","u":"libs_py/base/spider.py","s":26779,"h":"5DFB3008EE681FCCE86C13FB8C9CBE89"},{"p":"libs_py/base_spider.py","u":"libs_py/base_spider.py","s":14548,"h":"C008A21DAB8F5AF2DA12BBA5DCC074D8"},{"p":"libs_py/bs4/__init__.py","u":"libs_py/bs4/__init__.py","s":33822,"h":"77C78F8795BEE9083000E9446069F4B2"},{"p":"libs_py/bs4/builder/__init__.py","u":"libs_py/bs4/builder/__init__.py","s":24566,"h":"89DF388AF427AD6B15494519361D486F"},{"p":"libs_py/bs4/builder/_html5lib.py","u":"libs_py/bs4/builder/_html5lib.py","s":19114,"h":"52BD9F4B0E1CF23A5688BBEA94B971A3"},{"p":"libs_py/bs4/builder/_htmlparser.py","u":"libs_py/bs4/builder/_htmlparser.py","s":14923,"h":"B67049B8795ED6EA89E1258624CFAA51"},{"p":"libs_py/bs4/builder/_lxml.py","u":"libs_py/bs4/builder/_lxml.py","s":14948,"h":"2070E1652028CFE9E64D460E9E4CCA87"},{"p":"libs_py/bs4/css.py","u":"libs_py/bs4/css.py","s":10077,"h":"C6621321E036B59AA2D80EC1B7AF51F0"},{"p":"libs_py/bs4/dammit.py","u":"libs_py/bs4/dammit.py","s":41158,"h":"AD94F7565A8A3AF9C5C07242A535D0A8"},{"p":"libs_py/bs4/diagnose.py","u":"libs_py/bs4/diagnose.py","s":7195,"h":"4308BE3CBA3AF6D5143BC3AA974844B1"},{"p":"libs_py/bs4/element.py","u":"libs_py/bs4/element.py","s":92845,"h":"B188DF0C783ECA42BB70EC6701717004"},{"p":"libs_py/bs4/formatter.py","u":"libs_py/bs4/formatter.py","s":7188,"h":"1393F4E51A348A4E78ECF3A809FCEFB9"},{"p":"libs_py/soupsieve/__init__.py","u":"libs_py/soupsieve/__init__.py","s":4630,"h":"59B2861809709026E2C9ABB6439BA108"},{"p":"libs_py/soupsieve/__meta__.py","u":"libs_py/soupsieve/__meta__.py","s":6842,"h":"780B9793107B94788DB3D77BCEF41A1C"},{"p":"libs_py/soupsieve/css_match.py","u":"libs_py/soupsieve/css_match.py","s":58152,"h":"4E0E0ADF798C5AC886B08DCB5135A35D"},{"p":"libs_py/soupsieve/css_parser.py","u":"libs_py/soupsieve/css_parser.py","s":47063,"h":"CC75DFFBE18223102E90F7B81BDF4566"},{"p":"libs_py/soupsieve/css_types.py","u":"libs_py/soupsieve/css_types.py","s":10337,"h":"ACD7568DE2AA13FC3280CE0495748193"},{"p":"libs_py/soupsieve/pretty.py","u":"libs_py/soupsieve/pretty.py","s":4053,"h":"E25C2563E847866ABE6ADBB03DB5C868"},{"p":"libs_py/soupsieve/py.typed","u":"libs_py/soupsieve/py.typed","s":0,"h":"D41D8CD98F00B204E9800998ECF8427E"},{"p":"libs_py/soupsieve/util.py","u":"libs_py/soupsieve/util.py","s":3374,"h":"941E415506B70D17126EB2CDC41415FE"},{"p":"libs_py/胖虎.py","u":"libs_py/%E8%83%96%E8%99%8E.py","s":8960,"h":"0E5F3E6807647CAACF8A25AD949D8B1C"}]}
+{
+  "version": "7F08383D32184640FAEE896FF1C3D7D1",
+  "repo": "https://raw.githubusercontent.com/netusre/drpy-plugin-installer/master/plugins_runtime/",
+  "files": [
+    {
+      "p": "PythonHiker.js",
+      "u": "PythonHiker.js",
+      "s": 9974,
+      "h": "60D75E8FC6F74E4C0FBC0939F4BF273B"
+    },
+    {
+      "p": "arm64-v8a/libchaquopy_java.so",
+      "u": "arm64-v8a/libchaquopy_java.so",
+      "s": 159824,
+      "h": "4315677BF9B23EB487F494F3C95BA527"
+    },
+    {
+      "p": "arm64-v8a/libcrypto_chaquopy.so",
+      "u": "arm64-v8a/libcrypto_chaquopy.so",
+      "s": 3688,
+      "h": "6CF3E2A8850B1E57174CBB9FFFBF0C15"
+    },
+    {
+      "p": "arm64-v8a/libcrypto_python.so",
+      "u": "arm64-v8a/libcrypto_python.so",
+      "s": 2355168,
+      "h": "8DBCE09F765A5F627D13C140B39BFE69"
+    },
+    {
+      "p": "arm64-v8a/libpython3.8.so",
+      "u": "arm64-v8a/libpython3.8.so",
+      "s": 3255616,
+      "h": "EF35BB214F446C9E6E77E7CE016B0BA7"
+    },
+    {
+      "p": "arm64-v8a/libsqlite3_chaquopy.so",
+      "u": "arm64-v8a/libsqlite3_chaquopy.so",
+      "s": 3688,
+      "h": "15ADE18C19347B97112506BBAE364377"
+    },
+    {
+      "p": "arm64-v8a/libsqlite3_python.so",
+      "u": "arm64-v8a/libsqlite3_python.so",
+      "s": 1178920,
+      "h": "881855995A2BE28108F9E39165C034FB"
+    },
+    {
+      "p": "arm64-v8a/libssl_chaquopy.so",
+      "u": "arm64-v8a/libssl_chaquopy.so",
+      "s": 3688,
+      "h": "12C5DAEBC7D6DEF2C193BF1C92923BC7"
+    },
+    {
+      "p": "arm64-v8a/libssl_python.so",
+      "u": "arm64-v8a/libssl_python.so",
+      "s": 549488,
+      "h": "ECD23EF1592C331293AEC4E83D04A7A4"
+    },
+    {
+      "p": "chaquopy.apk",
+      "u": "chaquopy.apk",
+      "s": 9486516,
+      "h": "8A95EBA09BE6CF1E6F5FBE684E519328"
+    },
+    {
+      "p": "classes.dex",
+      "u": "classes.dex",
+      "s": 35272,
+      "h": "9C43007088F6D4096E3AA649C77AA03A"
+    },
+    {
+      "p": "libs_py/app.py",
+      "u": "libs_py/app.py",
+      "s": 2965,
+      "h": "4858699C5B03FF586FAFC3FF67A68BAD"
+    },
+    {
+      "p": "libs_py/base/hiker.py",
+      "u": "libs_py/base/hiker.py",
+      "s": 1258,
+      "h": "31A6841CADB68BE79B7260F1FBCE0BB5"
+    },
+    {
+      "p": "libs_py/base/hikerPop.py",
+      "u": "libs_py/base/hikerPop.py",
+      "s": 5396,
+      "h": "672EB4491814AE4F605DBD50B25F3B5D"
+    },
+    {
+      "p": "libs_py/base/htmlParser.py",
+      "u": "libs_py/base/htmlParser.py",
+      "s": 14055,
+      "h": "7DDF6BCC8B5F02259E861F9F32D71AB7"
+    },
+    {
+      "p": "libs_py/base/loader.py",
+      "u": "libs_py/base/loader.py",
+      "s": 1053,
+      "h": "79EA2022904EE16EB8005A684BE23F79"
+    },
+    {
+      "p": "libs_py/base/spider.py",
+      "u": "libs_py/base/spider.py",
+      "s": 26779,
+      "h": "5DFB3008EE681FCCE86C13FB8C9CBE89"
+    },
+    {
+      "p": "libs_py/base_spider.py",
+      "u": "libs_py/base_spider.py",
+      "s": 14548,
+      "h": "C008A21DAB8F5AF2DA12BBA5DCC074D8"
+    },
+    {
+      "p": "libs_py/bs4/__init__.py",
+      "u": "libs_py/bs4/__init__.py",
+      "s": 33822,
+      "h": "77C78F8795BEE9083000E9446069F4B2"
+    },
+    {
+      "p": "libs_py/bs4/builder/__init__.py",
+      "u": "libs_py/bs4/builder/__init__.py",
+      "s": 24566,
+      "h": "89DF388AF427AD6B15494519361D486F"
+    },
+    {
+      "p": "libs_py/bs4/builder/_html5lib.py",
+      "u": "libs_py/bs4/builder/_html5lib.py",
+      "s": 19114,
+      "h": "52BD9F4B0E1CF23A5688BBEA94B971A3"
+    },
+    {
+      "p": "libs_py/bs4/builder/_htmlparser.py",
+      "u": "libs_py/bs4/builder/_htmlparser.py",
+      "s": 14923,
+      "h": "B67049B8795ED6EA89E1258624CFAA51"
+    },
+    {
+      "p": "libs_py/bs4/builder/_lxml.py",
+      "u": "libs_py/bs4/builder/_lxml.py",
+      "s": 14948,
+      "h": "2070E1652028CFE9E64D460E9E4CCA87"
+    },
+    {
+      "p": "libs_py/bs4/css.py",
+      "u": "libs_py/bs4/css.py",
+      "s": 10077,
+      "h": "C6621321E036B59AA2D80EC1B7AF51F0"
+    },
+    {
+      "p": "libs_py/bs4/dammit.py",
+      "u": "libs_py/bs4/dammit.py",
+      "s": 41158,
+      "h": "AD94F7565A8A3AF9C5C07242A535D0A8"
+    },
+    {
+      "p": "libs_py/bs4/diagnose.py",
+      "u": "libs_py/bs4/diagnose.py",
+      "s": 7195,
+      "h": "4308BE3CBA3AF6D5143BC3AA974844B1"
+    },
+    {
+      "p": "libs_py/bs4/element.py",
+      "u": "libs_py/bs4/element.py",
+      "s": 92845,
+      "h": "B188DF0C783ECA42BB70EC6701717004"
+    },
+    {
+      "p": "libs_py/bs4/formatter.py",
+      "u": "libs_py/bs4/formatter.py",
+      "s": 7188,
+      "h": "1393F4E51A348A4E78ECF3A809FCEFB9"
+    },
+    {
+      "p": "libs_py/soupsieve/__init__.py",
+      "u": "libs_py/soupsieve/__init__.py",
+      "s": 4630,
+      "h": "59B2861809709026E2C9ABB6439BA108"
+    },
+    {
+      "p": "libs_py/soupsieve/__meta__.py",
+      "u": "libs_py/soupsieve/__meta__.py",
+      "s": 6842,
+      "h": "780B9793107B94788DB3D77BCEF41A1C"
+    },
+    {
+      "p": "libs_py/soupsieve/css_match.py",
+      "u": "libs_py/soupsieve/css_match.py",
+      "s": 58152,
+      "h": "4E0E0ADF798C5AC886B08DCB5135A35D"
+    },
+    {
+      "p": "libs_py/soupsieve/css_parser.py",
+      "u": "libs_py/soupsieve/css_parser.py",
+      "s": 47063,
+      "h": "CC75DFFBE18223102E90F7B81BDF4566"
+    },
+    {
+      "p": "libs_py/soupsieve/css_types.py",
+      "u": "libs_py/soupsieve/css_types.py",
+      "s": 10337,
+      "h": "ACD7568DE2AA13FC3280CE0495748193"
+    },
+    {
+      "p": "libs_py/soupsieve/pretty.py",
+      "u": "libs_py/soupsieve/pretty.py",
+      "s": 4053,
+      "h": "E25C2563E847866ABE6ADBB03DB5C868"
+    },
+    {
+      "p": "libs_py/soupsieve/py.typed",
+      "u": "libs_py/soupsieve/py.typed",
+      "s": 0,
+      "h": "D41D8CD98F00B204E9800998ECF8427E"
+    },
+    {
+      "p": "libs_py/soupsieve/util.py",
+      "u": "libs_py/soupsieve/util.py",
+      "s": 3374,
+      "h": "941E415506B70D17126EB2CDC41415FE"
+    },
+    {
+      "p": "libs_py/胖虎.py",
+      "u": "libs_py/%E8%83%96%E8%99%8E.py",
+      "s": 8960,
+      "h": "0E5F3E6807647CAACF8A25AD949D8B1C"
+    }
+  ]
+}
