@@ -44,4 +44,3 @@ def setHomeResult(data):
 
 def setSearchResult(data):
     njs.setSearchResult(app.toNativeJsObject(data), CALLBACK_KEY, _getRule(), "search")
-# HOT-MARKER-20260925-01
