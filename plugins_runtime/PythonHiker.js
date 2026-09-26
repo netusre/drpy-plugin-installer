@@ -39,23 +39,15 @@ let machinery = py.getModule("importlib.machinery");
 // 缓存 sys 模块引用, runPy 中用于检查模块是否已加载
 let _sysMod = py.getModule("sys");
 
-// 初始化时尝试清除 base.spider 缓存 (使用 execCode 代替 _pyEval)
+// 初始化时清除 base.spider / base_spider 缓存, 确保插件热更后能重新加载
 // 注意: 此时 evalCode/execCode 尚未定义, 使用 call_global_function 直接调用
-let _appMod0 = py.getModule("app");
-var _cacheDebug = [];
 try {
-    _appMod0.callAttr("call_global_function", ["exec",
+    py.getModule("app").callAttr("call_global_function", ["exec",
         "import sys as _s\n" +
-        "_before = 'base.spider' in _s.modules\n" +
-        "if _before:\n" +
-        "    _s.modules.pop('base.spider', None)\n" +
-        "    _s.modules.pop('base_spider', None)\n" +
-        "_after = 'base.spider' in _s.modules\n"
+        "_s.modules.pop('base.spider', None)\n" +
+        "_s.modules.pop('base_spider', None)\n"
     ]);
-    _cacheDebug.push("init clear done");
-} catch(e) {
-    _cacheDebug.push("init clear error: " + String(e));
-}
+} catch (e) {}
 
 let Builtins = py.getBuiltins();
 
@@ -258,18 +250,10 @@ function fromJs(obj) {
     //return PyObject.fromJava(obj);
 }
 
-function isInteger(obj) {
-    return ~~obj == obj
-}
-
 function toInt(num) {
     return new Integer(num);
 }
 Builtins.put("print", hiker.get("log"));
-// 输出缓存清理调试日志 (通过 Python print, JavaScript 中无 print 函数)
-_cacheDebug.forEach(function(msg) {
-    try { execCode("print('[cache] " + msg.replace(/'/g, "\\'") + "')"); } catch(e) {}
-});
 $.exports = {
     PyObject,
     Kwarg,
