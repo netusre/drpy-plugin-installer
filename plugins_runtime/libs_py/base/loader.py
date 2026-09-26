@@ -7,7 +7,7 @@
 import importlib
 
 try:
-    from hiker import log
+    from base.hiker import log
 
     _log = log
 except ImportError:
