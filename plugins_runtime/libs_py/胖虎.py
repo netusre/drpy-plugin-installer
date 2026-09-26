@@ -24,9 +24,14 @@ import json
 import re
 from urllib.parse import quote_plus
 
+# AES 密钥/IV: 接口固定值, 提到模块级避免每次调用重新 encode
+_AES_KEY = "ihIwTbt2YAe9TGea".encode("utf-8")
+_AES_IV = _AES_KEY
+
 
 class Spider(BaseSpider):  # 元类 默认的元类 type
     module = None
+    home_data = []
     t = str(int(time.time()))
     host = "http://sm.physkan.top:3389"
     jsp = jsoup(host)
@@ -61,7 +66,6 @@ class Spider(BaseSpider):  # 元类 默认的元类 type
                     break
 
         self.init_headers()
-        print(self.headers)
 
     def isVideoFormat(self, url):
         pass
@@ -92,8 +96,9 @@ class Spider(BaseSpider):  # 元类 默认的元类 type
         }
         filters = {}
         classes = []
-        json_data = json.loads(data2)["type_list"]
-        self.home_data = json.loads(data2)["banner_list"]
+        home_json = json.loads(data2)
+        json_data = home_json["type_list"]
+        self.home_data = home_json["banner_list"]
         for item in json_data:
             if item["type_name"] == "全部":
                 continue
@@ -219,8 +224,8 @@ class Spider(BaseSpider):  # 元类 默认的元类 type
         return [200, "video/MP2T", ""]
 
     def aes(self, operation, text):
-        key = "ihIwTbt2YAe9TGea".encode("utf-8")
-        iv = key
+        key = _AES_KEY
+        iv = _AES_IV
         if operation == "encrypt":
             cipher = AES.new(key, AES.MODE_CBC, iv)
             ct_bytes = cipher.encrypt(pad(text.encode("utf-8"), AES.block_size))
