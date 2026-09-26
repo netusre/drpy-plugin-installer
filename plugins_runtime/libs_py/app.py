@@ -43,11 +43,7 @@ def wrapper_jsfunc(jsFunc):
 def toJsObject(data, scope, jscontext):
     data_type = type(data)
     if data_type == list or data_type==tuple or data_type==set:
-        if(data_type==set or data_type==tuple):
-            data = list(data)
-        for i in range(len(data)):
-            data[i]=toJsObject(data[i], scope, jscontext)
-        return jscontext.newArray(scope, data)
+        return jscontext.newArray(scope, [toJsObject(item, scope, jscontext) for item in data])
     elif data_type == dict:
         jsObject = jscontext.newObject(scope)
         for key, value in data.items():
@@ -60,11 +56,7 @@ def toJsObject(data, scope, jscontext):
 def toNativeJsObject(data):
     data_type = type(data)
     if data_type == list or data_type==tuple or data_type==set:
-        if(data_type==set or data_type==tuple):
-            data = list(data)
-        for i in range(len(data)):
-            data[i]=toNativeJsObject(data[i])
-        return NativeArray(data)
+        return NativeArray([toNativeJsObject(item) for item in data])
     elif data_type == dict:
         jsObject = NativeObject()
         for key, value in data.items():
