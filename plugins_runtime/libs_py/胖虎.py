@@ -235,6 +235,8 @@ class Spider(BaseSpider):  # 元类 默认的元类 type
             cipher = AES.new(key, AES.MODE_CBC, iv)
             pt = unpad(cipher.decrypt(b64decode(text)), AES.block_size)
             return pt.decode("utf-8")
+        else:
+            raise ValueError("unsupported aes operation: %r" % (operation,))
 
 
 def main():
