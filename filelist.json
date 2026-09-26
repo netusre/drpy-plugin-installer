@@ -1,5 +1,5 @@
 {
-  "version": "7F08383D32184640FAEE896FF1C3D7D1",
+  "version": "076397EE0025E527460A7DE2A129287D",
   "repo": "https://raw.githubusercontent.com/netusre/drpy-plugin-installer/master/plugins_runtime/",
   "files": [
     {
@@ -77,8 +77,8 @@
     {
       "p": "libs_py/base/hiker.py",
       "u": "libs_py/base/hiker.py",
-      "s": 1258,
-      "h": "31A6841CADB68BE79B7260F1FBCE0BB5"
+      "s": 1233,
+      "h": "01C4A20871398392A388726B9DFA116F"
     },
     {
       "p": "libs_py/base/hikerPop.py",
