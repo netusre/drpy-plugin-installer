@@ -1,12 +1,12 @@
 {
-  "version": "094CC6FAEC17B254315135DD6DF54BB0",
+  "version": "B579CE9538CE5D90ABC6AFC3765DE92D",
   "repo": "https://raw.githubusercontent.com/netusre/drpy-plugin-installer/master/plugins_runtime/",
   "files": [
     {
       "p": "PythonHiker.js",
       "u": "PythonHiker.js",
-      "s": 9974,
-      "h": "60D75E8FC6F74E4C0FBC0939F4BF273B"
+      "s": 9438,
+      "h": "1D6E9249CA1B55E0EFF601DE5E210403"
     },
     {
       "p": "arm64-v8a/libchaquopy_java.so",
