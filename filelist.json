@@ -1,5 +1,5 @@
 {
-  "version": "B579CE9538CE5D90ABC6AFC3765DE92D",
+  "version": "4A1A827AB24BB1278D5DC08B55618157",
   "repo": "https://raw.githubusercontent.com/netusre/drpy-plugin-installer/master/plugins_runtime/",
   "files": [
     {
@@ -221,8 +221,8 @@
     {
       "p": "libs_py/胖虎.py",
       "u": "libs_py/%E8%83%96%E8%99%8E.py",
-      "s": 9098,
-      "h": "4F3A61127BE7AFB0DAF706FEAFCABC46"
+      "s": 9189,
+      "h": "13D6CF27667DB3D954136442E1C7663B"
     }
   ]
 }
