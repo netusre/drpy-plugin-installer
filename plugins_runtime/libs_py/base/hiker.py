@@ -15,6 +15,9 @@ def _getRule():
     return MY_RULE;
     
 def _dictToJSONObject(dic):
+    # 空 options 是绝大多数调用场景, 直接给空对象省掉一次 json.dumps
+    if not dic:
+        return JSON.parseObject('{}')
     return JSON.parseObject(json.dumps(dic))
 
 def log(*objects, sep=' ', end='\n', file = sys.stdout, flush=False):
