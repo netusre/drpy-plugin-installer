@@ -93,7 +93,7 @@ class jsoup:
                 nparse_pos = nparse_pos.split('--')[0]
             try:
                 nparse_index = int(nparse_pos.split('(')[1].split(')')[0])
-            except:
+            except Exception:
                 pass
 
         elif self.contains(nparse, '--'):
@@ -226,10 +226,10 @@ class jsoup:
                     ret = original_ret.attr(opt) or ''
                     if self.contains(opt.lower(), 'style') and self.contains(ret, 'url('):
                         try:
-                            ret = re.search('url\((.*?)\)', ret, re.M | re.S).groups()[0]
+                            ret = re.search(r'url\((.*?)\)', ret, re.M | re.S).groups()[0]
                             # 2023/07/28新增 style取内部链接自动去除首尾单双引号
                             ret = re.sub(r"^['\"]|['\"]$", '', ret)
-                        except:
+                        except Exception:
                             pass
                     if ret and base_url:
                         # need_add = re.search(URLJOIN_ATTR, opt, re.M | re.I)
@@ -261,7 +261,7 @@ class jsoup:
             try:
                 html = ujson.loads(html)
                 # html = eval(html)
-            except:
+            except Exception:
                 print('字符串转json失败')
                 return ''
         if not parse.startswith('$.'):
@@ -289,7 +289,7 @@ class jsoup:
         if isinstance(html, str):
             try:
                 html = ujson.loads(html)
-            except:
+            except Exception:
                 return []
         if not parse.startswith('$.'):
             parse = f'$.{parse}'
