@@ -38,6 +38,12 @@ except ImportError:
 warnings.filterwarnings("ignore")
 requests.packages.urllib3.disable_warnings()
 
+# ===== 预编译正则 =====
+# 模块级编译一次, 避免 cleanText/remove_comments 每次调用重新编译
+_EMOJI_RE = re.compile('[\U0001F600-\U0001F64F\U0001F300-\U0001F5FF\U0001F680-\U0001F6FF\U0001F1E0-\U0001F1FF]')
+_TRIPLE_QUOTE_RE = re.compile(r'\s*[\'\"]{3}[\S\s]*?[\'\"]{3}')
+_BLOCK_COMMENT_RE = re.compile(r'\s*/\*[\S\s]*?\*/')
+
 # ===== 懒加载重模块 =====
 # lxml 和 pycryptodome 是 C 扩展, 首次 import 耗时 100-300ms
 # 大多数 PY 源不使用 XML 解析 / AES / RSA, 延迟到实际调用时才加载
@@ -163,8 +169,7 @@ class BaseSpider:  # 不使用 ABCMeta, 允许源只实现部分方法即可实�
     # cGroup = re.compile('[\U00010000-\U0010ffff]')
     # clean = cGroup.sub('',rsp.text)
     def cleanText(self, src):
-        clean = re.sub('[\U0001F600-\U0001F64F\U0001F300-\U0001F5FF\U0001F680-\U0001F6FF\U0001F1E0-\U0001F1FF]', '',
-                       src)
+        clean = _EMOJI_RE.sub('', src)
         return clean
 
     # ==================== HTTP 请求方法 ====================
@@ -720,9 +725,9 @@ class BaseSpider:  # 不使用 ABCMeta, 允许源只实现部分方法即可实�
         @return:
         """
 
-        pattern = re.compile(r'\s*[\'\"]{3}[\S\s]*?[\'\"]{3}')
+        pattern = _TRIPLE_QUOTE_RE
         text = pattern.sub('', text)
-        pattern = re.compile(r'\s*/\*[\S\s]*?\*/')
+        pattern = _BLOCK_COMMENT_RE
         text = pattern.sub('', text)
         text = text.splitlines()
         text = [txt for txt in text if not (txt.strip().startswith('//') or txt.strip().startswith('#'))]
