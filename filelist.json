@@ -1,5 +1,5 @@
 {
-  "version": "BD45950DF4CD8CEDC3D6DBB4FA41939E",
+  "version": "77DA74D3DCFAF65061F890AD8083536D",
   "repo": "https://raw.githubusercontent.com/netusre/drpy-plugin-installer/master/plugins_runtime/",
   "files": [
     {
@@ -89,8 +89,8 @@
     {
       "p": "libs_py/base/htmlParser.py",
       "u": "libs_py/base/htmlParser.py",
-      "s": 14055,
-      "h": "7DDF6BCC8B5F02259E861F9F32D71AB7"
+      "s": 14096,
+      "h": "A5517FB0DA511DE986F3178BE5313B47"
     },
     {
       "p": "libs_py/base/loader.py",
