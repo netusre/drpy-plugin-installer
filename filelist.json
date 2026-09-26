@@ -1,5 +1,5 @@
 {
-  "version": "E7502D476F358D568074114A677677B5",
+  "version": "094CC6FAEC17B254315135DD6DF54BB0",
   "repo": "https://raw.githubusercontent.com/netusre/drpy-plugin-installer/master/plugins_runtime/",
   "files": [
     {
@@ -101,8 +101,8 @@
     {
       "p": "libs_py/base/spider.py",
       "u": "libs_py/base/spider.py",
-      "s": 26779,
-      "h": "5DFB3008EE681FCCE86C13FB8C9CBE89"
+      "s": 26974,
+      "h": "188D224614056968B4C1567A10D862B9"
     },
     {
       "p": "libs_py/base_spider.py",
